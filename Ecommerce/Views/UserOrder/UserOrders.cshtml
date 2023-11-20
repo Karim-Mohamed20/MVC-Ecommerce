@@ -1,0 +1,83 @@
+﻿@model List<Order>
+@{
+}
+<div style="width:100%" class="mt-2">
+    <a href="/Identity/Account/Manage" class="btn btn-primary my-2">Back</a>
+
+    @if (Model != null && Model.Count() > 0)
+    {
+    <h4>My Orders</h4>
+        <table class="table table-striped">
+            <tr>
+                <th>#</th>
+                <th>OrderDate</th>
+                <th>OrderStatus</th>
+            </tr>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.CreateDate.ToString("dd-MM-yyyy")</td>
+                    <td>@order.OrderStatus.StatusName</td>
+                </tr>
+                @if (order.OrderDetails != null && order.OrderDetails.Count > 0)
+                {
+                    <tr>
+                        <td>
+                            <table class="table table-striped" style="margin-bottom: 0">
+                                <tr class="text-center"> 
+                                    <td></td>
+                                    <td></td>
+                                    <th>
+                                        Order Description
+                                    </th>
+                                    <td></td>
+                                    <td></td>
+
+                                </tr>
+                                
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Image</th>
+                                    <th>Unit Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total Price</th>
+                                </tr>
+                                @foreach (var item in order.OrderDetails)
+                                {
+                                    <tr>
+                                        <td>@item.Product.Name</td>
+                                        <td>
+                                            <img src="/images/@item.Product.ImgUrl" style="width:80px;height:100px" />
+                                        </td>
+                                        <td>@item.Product.UnitPrice</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@(item.Product.UnitPrice * item.Quantity)</td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td>
+                                        Total:
+                                    </td>
+                                    <td>
+                                        @(order.OrderDetails.Select(item => item.Product.UnitPrice * item.Quantity).Sum())
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+
+    }
+    else
+    {
+        <h5>No orders</h5>
+    }
+</div>
+
+
+
+

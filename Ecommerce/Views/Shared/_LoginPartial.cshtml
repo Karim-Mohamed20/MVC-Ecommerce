@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @if (User.IsInRole("User"))
+        {
+    <li class="nav-item">
+        <a class="nav-link" href="/Cart/GetUserCart">
+            <span id="cartCount" class="badge text-bg-info">0</span>
+            <i class="bi bi-cart text-white"></i>
+        </a>
+    </li>
+        }
+
+    
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+
+                <span id="username">Welcome @GetUsername(User.Identity?.Name)</span>
+
+                @* @if (User.IsInRole("Admin"))
+                {
+
+                    <span>Welcome Admin</span>
+                } *@
+            </a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>
+
+<script>
+    @functions {
+        public string GetUsername(string email)
+        {
+            if (!string.IsNullOrEmpty(email))
+            {
+                int atIndex = email.IndexOf("@");
+                if (atIndex != -1)
+                {
+                    return email.Substring(0, atIndex);
+                }
+            }
+
+            return string.Empty;
+        }
+    }
+</script>

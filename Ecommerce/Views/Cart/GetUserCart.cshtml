@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model Cart
+@{
+    ViewData["Title"] = "GetUserCart";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (User.IsInRole("User"))
+    {
+        <div style="width:90%;margin:auto" class="mt-2">
+            @if (Model != null && Model.CartDetails != null && Model.CartDetails.Count > 0)
+            {
+                <h4 style="margin-top:25px; margin-bottom:25px" class="text-center">Cart Items</h4>
+
+                <table class="table table-striped">
+                    <tr>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Add / Remove</th>
+                    </tr>
+                    @foreach (var item in Model.CartDetails)
+                    {
+                        <tr>
+                            <td>@item.Product.Name</td>
+                            <td>
+                                <img src="/images/@item.Product.ImgUrl" style="width:80px;height:100px" />
+                            </td>
+                            <td>@item.Product.UnitPrice</td>
+                            <td>@item.Quantity</td>
+                            <td>@(item.Product.UnitPrice * item.Quantity)</td>
+                            <td>
+                                <a class="btn btn-info" style="margin-right:10px" href="/Cart/AddItem?productId=@item.ProductId&&redirect=1">+</a>
+                                <a class="btn btn-info" href="/Cart/RemoveItem?productId=@item.ProductId">-</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+                <div class="my-2">
+                    <h5>Total : <span style="font-size:18px">@(Model.CartDetails.Select(item => item.Product.UnitPrice * item.Quantity).Sum())</span></h5>
+                </div>
+
+                <div class="my-3">
+                    <a class="btn btn-primary" style="margin-right:20px" href="/Cart/Checkout">Checkout</a>
+                    <a class="btn btn-primary" href="/Home/Index">Back</a>
+                </div>
+            }
+            else
+            {
+                <a class="btn btn-primary" href="/Home/Index" style="margin-bottom:10px;margin-top:10px">Back</a>
+                <h5>Cart is empty</h5>
+            }
+        </div>
+    }
+}
+

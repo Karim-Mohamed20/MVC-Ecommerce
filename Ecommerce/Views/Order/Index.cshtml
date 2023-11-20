@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<OrderList>
+
+<h3 class="text-center" style="margin-top:14px">Order List</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Status Name</th>
+            <th>Create Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var username = item.UserName.Substring(0, item.UserName.IndexOf("@"));
+            <tr>
+                <td>@username</td>
+                <td>@item.StatusName</td>
+                <td>@item.CreateDate</td>
+                <td>
+                    <select style="width:170px" class="form-select" aria-label="Default select example">
+                        <option selected>Update Status</option>
+                        <option value="1">Pending</option>
+                        <option value="2">Shipped</option>
+                        <option value="3">Delivered</option>
+                        <option value="4">Cancelled</option>
+                    </select>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,33 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h1>Detail</h1>
+<br />
+
+<style>
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+<section>
+    <div>
+        <div class="row">
+
+            <div style="float:left ; width: 15%"><img src="/images/@Model.ImgUrl" width=80%, height=60% /></div>
+            <br style="clear:both;" />
+            <div style=" width: 30%">
+                <h1>@Model.Id . @Model.Name</h1>
+                <br />
+                <div>
+                    <span style="color:#ff0000">Salary: $@Model.UnitPrice</span>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</section>

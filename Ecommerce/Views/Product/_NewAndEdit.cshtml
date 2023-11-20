@@ -1,0 +1,36 @@
+﻿@model Product 
+
+
+
+<form method="post" asp-action="@ViewBag.Link" asp-controller="Product">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <label asp-for="UnitPrice"></label>
+        <input asp-for="UnitPrice" class="form-control">
+        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <label asp-for="ImgUrl"></label>
+        <input asp-for="ImgUrl" class="form-control">
+        <span asp-validation-for="ImgUrl" class="text-danger"></span>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/Product/Index" style="margin-left:10px" class="btn btn-primary">Back to List</a>
+</form>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

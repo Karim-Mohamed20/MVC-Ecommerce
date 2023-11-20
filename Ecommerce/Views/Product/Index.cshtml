@@ -1,0 +1,42 @@
+﻿
+@model List<Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 style="margin-top:8px;">Products</h2>
+
+<a href="/Product/New" style="margin-bottom:8px;margin-top:7px;" class="btn btn-primary">New</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Image</th>
+            <th></th>
+            <th></th>
+            <th></th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Product product in @Model)
+        {
+            <tr>
+                <th scope="row">@product.Id</th>
+                <td style="width: 15%;">@product.Name</td>
+                <td style="color:#ff0000">$@product.UnitPrice</td>
+                <td><img src="/images/@product.ImgUrl" width=80px, height=80px /></td>
+                <td>
+                    @Html.ActionLink("Edit","Edit","Product",new{Id=product.Id},new{@class="btn btn-outline-info"})
+                </td>
+                <td><a href="/Product/Details/@product.Id" class="btn btn-outline-success">Detail</a></td>
+                <td><a href="/Product/Delete/@product.Id" class="btn btn-outline-danger">Delete</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>

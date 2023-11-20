@@ -1,0 +1,16 @@
+﻿
+@model Product
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2 style="margin-top:8px;margin-bottom:10px">Details</h2>
+
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="/images/@Model.ImgUrl" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Model.UnitPrice</p>
+    </div>
+</div>
+<a style="margin-top:15px" href="/Product/Index" class="btn btn-primary">Back to List</a>
